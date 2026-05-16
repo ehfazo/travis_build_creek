@@ -1,0 +1,41 @@
+name: Trigger Travis CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  trigger-travis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Travis build
+        env:
+          TRAVIS_ACCESS_TOKEN: ${{ secrets.TRAVIS_ACCESS_TOKEN }}
+          TRAVIS_REPO_SLUG: ${{ github.repository }}
+          TRAVIS_BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ -z "$TRAVIS_ACCESS_TOKEN" ]; then
+            echo "Missing TRAVIS_ACCESS_TOKEN secret" >&2
+            exit 1
+          fi
+
+          payload=$(cat <<'JSON'
+          {
+            "request": {
+              "branch": "__BRANCH__"
+            }
+          }
+          JSON
+          )
+
+          payload=${payload/__BRANCH__/${TRAVIS_BRANCH}}
+
+          curl -sS -X POST \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -H "Travis-API-Version: 3" \
+            -H "Authorization: token ${TRAVIS_ACCESS_TOKEN}" \
+            --data "${payload}" \
+            "https://api.travis-ci.com/repo/${TRAVIS_REPO_SLUG}/requests"
