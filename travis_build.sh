@@ -26,6 +26,13 @@ if ! command -v jq &> /dev/null; then
     export PATH=$HOME/bin:$PATH
 fi
 
+if ! command -v repo &> /dev/null; then
+    mkdir -p ~/bin
+    curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+    chmod a+x ~/bin/repo
+    export PATH=$HOME/bin:$PATH
+fi
+
 curl -sf https://raw.githubusercontent.com/nuruszama/crave_build_script/main/build_config.sh -o build_config.sh
 source build_config.sh
 
