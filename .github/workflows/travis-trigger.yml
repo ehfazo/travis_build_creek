@@ -3,7 +3,7 @@ name: Trigger Travis CI
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
