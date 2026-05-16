@@ -23,5 +23,4 @@ jobs:
                 "message": "Triggered by GitHub Actions commit ${{ github.sha }}"
               }
             }' \
-            "https://api.travis-ci.com/repo/${{ secrets.TRAVIS_REPO_SLUG }}/requests"
-        shell: bash
+            "https://developer.travis-ci.com/repo/${{ secrets.TRAVIS_REPO_SLUG }}/requests"
