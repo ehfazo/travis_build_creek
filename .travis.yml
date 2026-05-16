@@ -15,7 +15,7 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install -y bc build-essential zip curl libstdc++6 git wget python3 python3-pip repo
+  - sudo apt-get install -y bc build-essential zip curl libstdc++6 git wget python3 python3-pip
   - chmod +x travis_build.sh
 
 script:
