@@ -2,14 +2,17 @@
 
 set -o pipefail
 
-if [ ! -f ".env" ]; then
-    echo "⚠️ .env file not found!"
-    exit 1
-fi
+# Skip .env check if running in CI environment (Travis)
+if [ -z "$TRAVIS" ]; then
+    if [ ! -f ".env" ]; then
+        echo "⚠️ .env file not found!"
+        exit 1
+    fi
 
-set -o allexport
-source .env
-set +o allexport
+    set -o allexport
+    source .env
+    set +o allexport
+fi
 
 echo "🕒 Switching system timezone to Gulf Standard Time"
 sudo rm -f /etc/localtime

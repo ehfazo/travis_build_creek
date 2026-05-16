@@ -9,6 +9,9 @@ env:
     - ANDROID_COMPILE_SDK=35
     - ANDROID_BUILD_TOOLS=35.0.0
     - ANDROID_SDK_TOOLS=11076708
+    - TG_TOKEN=$TG_TOKEN
+    - TG_CHAT=$TG_CHAT
+    - PIXELDRAIN=$PIXELDRAIN
 
 before_install:
   - chmod +x travis_build.sh
